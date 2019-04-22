@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
+import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 
 @Mapper
 public interface JournalFairDao {
 
-	List<FairInformation> selectFairInformations();
+	List<FairUserShowVo> selectFairInformations();
 }

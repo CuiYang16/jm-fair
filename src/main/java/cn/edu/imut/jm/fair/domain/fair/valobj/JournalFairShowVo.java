@@ -64,4 +64,114 @@ public class JournalFairShowVo {
 	 */
 	private String fairDescribe;
 
+	private FairUserShowVo fairUserShow;
+
+	public Integer getFairInformationId() {
+		return fairInformationId;
+	}
+
+	public void setFairInformationId(Integer fairInformationId) {
+		this.fairInformationId = fairInformationId;
+	}
+
+	public String getFairName() {
+		return fairName;
+	}
+
+	public void setFairName(String fairName) {
+		this.fairName = fairName;
+	}
+
+	public String getFairTheme() {
+		return fairTheme;
+	}
+
+	public void setFairTheme(String fairTheme) {
+		this.fairTheme = fairTheme;
+	}
+
+	public String getFairSite() {
+		return fairSite;
+	}
+
+	public void setFairSite(String fairSite) {
+		this.fairSite = fairSite;
+	}
+
+	public Date getFairStartTime() {
+		return fairStartTime;
+	}
+
+	public void setFairStartTime(Date fairStartTime) {
+		this.fairStartTime = fairStartTime;
+	}
+
+	public Date getFairEndTime() {
+		return fairEndTime;
+	}
+
+	public void setFairEndTime(Date fairEndTime) {
+		this.fairEndTime = fairEndTime;
+	}
+
+	public String getFairHost() {
+		return fairHost;
+	}
+
+	public void setFairHost(String fairHost) {
+		this.fairHost = fairHost;
+	}
+
+	public String getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(String sponsor) {
+		this.sponsor = sponsor;
+	}
+
+	public String getOrganizer() {
+		return organizer;
+	}
+
+	public void setOrganizer(String organizer) {
+		this.organizer = organizer;
+	}
+
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getFairDescribe() {
+		return fairDescribe;
+	}
+
+	public void setFairDescribe(String fairDescribe) {
+		this.fairDescribe = fairDescribe;
+	}
+
+	public FairUserShowVo getFairUserShow() {
+		return fairUserShow;
+	}
+
+	public void setFairUserShow(FairUserShowVo fairUserShow) {
+		this.fairUserShow = fairUserShow;
+	}
+
+	public JournalFairShowVo() {
+		super();
+	}
+
 }

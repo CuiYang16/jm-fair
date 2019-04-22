@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper
 	namespace="cn.edu.imut.jm.fair.domain.fair.dao.JournalFairDao">
+	<!--借阅信息扩展类  -->
 	<resultMap id="FairInformationMap"
-		type="cn.edu.imut.jm.fair.domain.fair.entity.FairInformation">
+		type="cn.edu.imut.jm.fair.domain.fair.valobj.JournalFairShowVo">
 		<id column="fair_information_id" property="fairInformationId"
 			jdbcType="INTEGER" />
 		<result column="fair_name" property="fairName"
@@ -13,29 +14,48 @@
 		<result column="fair_site" property="fairSite"
 			jdbcType="VARCHAR" />
 		<result column="fair_start_time" property="fairStartTime"
-			jdbcType="DATE" />
+			jdbcType="TIMESTAMP" />
 		<result column="fair_end_time" property="fairEndTime"
-			jdbcType="DATE" />
+			jdbcType="TIMESTAMP" />
 		<result column="fair_host" property="fairHost"
 			jdbcType="VARCHAR" />
 		<result column="sponsor" property="sponsor" jdbcType="VARCHAR" />
 		<result column="organizer" property="organizer"
 			jdbcType="VARCHAR" />
 		<result column="fair_describe" property="fairDescribe"
-			jdbcType="TEXT" />
-		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+			jdbcType="LONGVARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="TINYINT" />
 		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<association property="fairUserShow" column="user_id"
+			javaType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo"
+			select="selectFairUser"></association>
+	</resultMap>
+	<!-- 用户信息 -->
+	<resultMap id="UserMap"
+		type="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo">
+		<id column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="user_name" property="userName"
+			jdbcType="VARCHAR" />
+		<result column="user_phone" property="userPhone"
+			jdbcType="VARCHAR" />
 	</resultMap>
 
+	<select id="selectFairUser" parameterType="int"
+		resultMap="UserMap">
+		select user_name,user_phone from user where user_id
+		=#{userId,jdbcType=INTEGER}
+	</select>
 	<sql id="FairInformation_Column_List">
-		fair_information_id, fair_name, fair_theme, fair_site, fair_start_time, fair_end_time,
-		fair_host, sponsor, organizer,fair_describe, is_delete, user_id
+		fair_information_id, fair_name, fair_theme, fair_site,
+		fair_start_time, fair_end_time,
+		fair_host, sponsor,
+		organizer,fair_describe, is_delete, user_id
 	</sql>
 
-	<select id="selectFairInformations" resultMap="FairInformationMap">
+	<select id="selectFairInformations"
+		resultMap="FairInformationMap">
 		select
 		<include refid="FairInformation_Column_List" />
 		from fair_information
-
 	</select>
 </mapper>
