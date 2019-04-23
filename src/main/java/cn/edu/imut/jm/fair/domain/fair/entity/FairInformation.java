@@ -51,6 +51,11 @@ public class FairInformation {
     private String organizer;
 
     /**
+     * 书展图片
+     */
+    private String fairImg;
+
+    /**
      * 是否已删除
      */
     private Boolean isDelete;
@@ -135,6 +140,14 @@ public class FairInformation {
 
     public void setOrganizer(String organizer) {
         this.organizer = organizer == null ? null : organizer.trim();
+    }
+
+    public String getFairImg() {
+        return fairImg;
+    }
+
+    public void setFairImg(String fairImg) {
+        this.fairImg = fairImg == null ? null : fairImg.trim();
     }
 
     public Boolean getIsDelete() {

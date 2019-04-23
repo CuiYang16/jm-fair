@@ -11,6 +11,24 @@ public class ResponseVo<E> extends AbstractResponse {
 	private List<E> list;
 	private Integer val;
 	private PageInfo<E> pageInfo;
+	private JournalFairShowVo fairShowVo;
+	private String msg;
+
+	public JournalFairShowVo getFairShowVo() {
+		return fairShowVo;
+	}
+
+	public void setFairShowVo(JournalFairShowVo fairShowVo) {
+		this.fairShowVo = fairShowVo;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
 	public List<E> getList() {
 		return list;
@@ -55,6 +73,24 @@ public class ResponseVo<E> extends AbstractResponse {
 	public ResponseVo(PageInfo<E> pageInfo) {
 		super();
 		this.pageInfo = pageInfo;
+	}
+
+	public ResponseVo(JournalFairShowVo fairShowVo) {
+		super();
+		this.fairShowVo = fairShowVo;
+	}
+
+	public ResponseVo(Integer val, String msg) {
+		super();
+		this.val = val;
+		this.msg = msg;
+	}
+
+	public ResponseVo(Integer val, JournalFairShowVo fairShowVo, String msg) {
+		super();
+		this.val = val;
+		this.fairShowVo = fairShowVo;
+		this.msg = msg;
 	}
 
 	public ResponseVo() {

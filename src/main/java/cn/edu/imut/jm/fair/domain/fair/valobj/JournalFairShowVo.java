@@ -48,6 +48,10 @@ public class JournalFairShowVo {
 	 * 承办者
 	 */
 	private String organizer;
+	/**
+	 * 书展图片
+	 */
+	private String fairImg;
 
 	/**
 	 * 是否已删除
@@ -168,6 +172,14 @@ public class JournalFairShowVo {
 
 	public void setFairUserShow(FairUserShowVo fairUserShow) {
 		this.fairUserShow = fairUserShow;
+	}
+
+	public String getFairImg() {
+		return fairImg;
+	}
+
+	public void setFairImg(String fairImg) {
+		this.fairImg = fairImg;
 	}
 
 	public JournalFairShowVo() {
