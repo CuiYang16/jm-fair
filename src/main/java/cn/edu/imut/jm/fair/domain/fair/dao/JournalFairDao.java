@@ -29,4 +29,7 @@ public interface JournalFairDao {
 	Integer updateMultipleJournalFairDel(List<Integer> ids);
 
 	Integer deleteMultipleJournal(List<Integer> ids);
+
+//	前端请求接口
+	List<FairUserShowVo> selectFairInfos();
 }

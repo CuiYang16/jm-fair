@@ -1,5 +1,7 @@
 package cn.edu.imut.jm.fair.interfaces.facade.controller.api;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,4 +40,7 @@ public interface JournalFairServiceApi {
 	@RequestMapping(value = "/del-fair", method = RequestMethod.DELETE)
 	ResponseVo DelJournalFair(@RequestBody String json);
 
+//	前端请求
+	@RequestMapping(value = "/get/fairs", method = RequestMethod.GET)
+	List<FairUserShowVo> selectFairInfos();
 }

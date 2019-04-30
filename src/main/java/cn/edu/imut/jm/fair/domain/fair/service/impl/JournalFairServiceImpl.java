@@ -100,4 +100,12 @@ public class JournalFairServiceImpl implements JournalFairService {
 		return null;
 	}
 
+//	前端请求
+	@Override
+	public List<FairUserShowVo> selectFairInfos() {
+
+		return journalFairDao.selectFairInfos();
+
+	}
+
 }

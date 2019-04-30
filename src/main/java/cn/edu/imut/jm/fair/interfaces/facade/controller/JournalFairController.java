@@ -25,7 +25,7 @@ import cn.edu.imut.jm.journal.domain.journal.valobj.JournalDetailVo;
 @RestController
 public class JournalFairController implements JournalFairServiceApi {
 
-	private static final String FAIR_IMG_FILE_PATH = "E:/img/";
+	private static final String FAIR_IMG_FILE_PATH = "F:/MyWorkSpace/bishe-vue/journal-door/static/fair-img/";
 
 	@Autowired
 	private JournalFairService journalFairService;
@@ -154,6 +154,12 @@ public class JournalFairController implements JournalFairServiceApi {
 			return new ResponseVo<>(journalFairService.deleteMultipleJournal(ids));
 		}
 		return new ResponseVo<>(0);
+	}
+
+	@Override
+	public List<FairUserShowVo> selectFairInfos() {
+
+		return journalFairService.selectFairInfos();
 	}
 
 }

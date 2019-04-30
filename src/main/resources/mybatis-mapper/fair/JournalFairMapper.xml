@@ -23,7 +23,8 @@
 		<result column="organizer" property="organizer"
 			jdbcType="VARCHAR" />
 		<result column="fair_img" property="fairImg" jdbcType="VARCHAR" />
-		<result column="fair_describe" property="fairDescribe" jdbcType="LONGVARCHAR" />
+		<result column="fair_describe" property="fairDescribe"
+			jdbcType="LONGVARCHAR" />
 		<result column="is_delete" property="isDelete"
 			jdbcType="TINYINT" />
 		<result column="user_id" property="userId" jdbcType="INTEGER" />
@@ -54,7 +55,8 @@
 	<sql id="FairInformation_Column_List">
 		fair_information_id, fair_name, fair_theme, fair_site,
 		fair_start_time, fair_end_time,
-		fair_host, sponsor, organizer, fair_img,fair_describe, is_delete, user_id
+		fair_host, sponsor, organizer,
+		fair_img,fair_describe, is_delete, user_id
 	</sql>
 
 	<!--查询 -->
@@ -74,7 +76,7 @@
 				and fair_end_time &gt; NOW()
 			</if>
 		</where>
-		 order by fair_information_id desc
+		order by fair_information_id desc
 	</select>
 
 	<!--查询 根据id -->
@@ -227,7 +229,7 @@
 		</set>
 		where fair_information_id = #{fairInformationId,jdbcType=INTEGER}
 	</update>
-	
+
 	<!-- 改变删除状态 -->
 	<update id="updateJournalFairDel" parameterType="int">
 		update fair_information
@@ -236,11 +238,12 @@
 		</set>
 		where fair_information_id = #{fairInformationId,jdbcType=INTEGER}
 	</update>
-	<!--  彻底删除数据-->
+	<!-- 彻底删除数据 -->
 	<delete id="deleteJournalFair" parameterType="java.lang.Integer">
 		delete from
 		fair_information
-		where fair_information_id = #{fairInformationId,jdbcType=INTEGER}
+		where fair_information_id =
+		#{fairInformationId,jdbcType=INTEGER}
 	</delete>
 	<!--批量改变删除状态 -->
 	<update id="updateMultipleJournalFairDel"
@@ -250,19 +253,29 @@
 			is_delete = 1,
 		</set>
 		where fair_information_id in
-		<foreach collection="list" item="fairInformationId" index="index"
-			open="(" close=")" separator=",">
+		<foreach collection="list" item="fairInformationId"
+			index="index" open="(" close=")" separator=",">
 			#{fairInformationId,jdbcType=INTEGER}
 		</foreach>
 	</update>
-	<!--批量 彻底删除  -->
+	<!--批量 彻底删除 -->
 	<delete id="deleteMultipleJournal"
 		parameterType="java.util.List">
 		delete from fair_information
 		where fair_information_id in
-		<foreach collection="list" item="fairInformationId" index="index"
-			open="(" close=")" separator=",">
+		<foreach collection="list" item="fairInformationId"
+			index="index" open="(" close=")" separator=",">
 			#{fairInformationId,jdbcType=INTEGER}
 		</foreach>
 	</delete>
+
+
+	<!-- 前端请求 -->
+	<!--查询 -->
+	<select id="selectFairInfos" resultMap="JournalFairShowVoMap">
+		select
+		<include refid="FairInformation_Column_List" />
+		from fair_information where fair_end_time &gt; NOW() order by
+		fair_start_time desc
+	</select>
 </mapper>

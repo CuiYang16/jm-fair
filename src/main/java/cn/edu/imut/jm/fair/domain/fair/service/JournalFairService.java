@@ -28,4 +28,6 @@ public interface JournalFairService {
 	Integer updateMultipleJournalFairDel(List<Integer> ids);
 
 	Integer deleteMultipleJournal(List<Integer> ids);
+
+	List<FairUserShowVo> selectFairInfos();
 }
