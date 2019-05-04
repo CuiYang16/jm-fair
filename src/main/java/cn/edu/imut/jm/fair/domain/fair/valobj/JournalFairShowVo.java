@@ -1,6 +1,9 @@
 package cn.edu.imut.jm.fair.domain.fair.valobj;
 
 import java.util.Date;
+import java.util.List;
+
+import cn.edu.imut.jm.fair.domain.fair.entity.FairUser;
 
 public class JournalFairShowVo {
 
@@ -69,6 +72,8 @@ public class JournalFairShowVo {
 	private String fairDescribe;
 
 	private FairUserShowVo fairUserShow;
+
+	private List<FairUser> fairUsers;
 
 	public Integer getFairInformationId() {
 		return fairInformationId;
@@ -180,6 +185,14 @@ public class JournalFairShowVo {
 
 	public void setFairImg(String fairImg) {
 		this.fairImg = fairImg;
+	}
+
+	public List<FairUser> getFairUsers() {
+		return fairUsers;
+	}
+
+	public void setFairUsers(List<FairUser> fairUsers) {
+		this.fairUsers = fairUsers;
 	}
 
 	public JournalFairShowVo() {

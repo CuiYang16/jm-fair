@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
+import cn.edu.imut.jm.fair.domain.fair.entity.FairUser;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.JournalFairShowVo;
 
@@ -32,4 +33,8 @@ public interface JournalFairDao {
 
 //	前端请求接口
 	List<FairUserShowVo> selectFairInfos();
+
+	Integer insertFairUser(FairUser fairUser);
+
+	Integer verifyIsJoin(@Param("fairInformationId") Integer fairInformationId, @Param("userId") Integer userId);
 }

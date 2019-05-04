@@ -43,4 +43,7 @@ public interface JournalFairServiceApi {
 //	前端请求
 	@RequestMapping(value = "/get/fairs", method = RequestMethod.GET)
 	List<FairUserShowVo> selectFairInfos();
+
+	@RequestMapping(value = "/insert/fair-user", method = RequestMethod.POST)
+	Integer insertFairUser(@RequestBody String json);
 }

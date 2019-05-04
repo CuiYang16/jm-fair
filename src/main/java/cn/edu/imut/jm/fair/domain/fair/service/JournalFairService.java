@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
+import cn.edu.imut.jm.fair.domain.fair.entity.FairUser;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.JournalFairShowVo;
 
@@ -30,4 +31,7 @@ public interface JournalFairService {
 	Integer deleteMultipleJournal(List<Integer> ids);
 
 	List<FairUserShowVo> selectFairInfos();
+
+//	前端请求
+	Integer insertFairUser(FairUser fairUser);
 }

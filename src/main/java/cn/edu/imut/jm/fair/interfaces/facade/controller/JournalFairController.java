@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 
 import cn.edu.imut.infrastructrue.util.JwtTokenUtil;
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
+import cn.edu.imut.jm.fair.domain.fair.entity.FairUser;
 import cn.edu.imut.jm.fair.domain.fair.facade.FairFacade;
 import cn.edu.imut.jm.fair.domain.fair.service.JournalFairService;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
@@ -160,6 +161,16 @@ public class JournalFairController implements JournalFairServiceApi {
 	public List<FairUserShowVo> selectFairInfos() {
 
 		return journalFairService.selectFairInfos();
+	}
+
+	@Override
+	public Integer insertFairUser(@RequestBody String json) {
+		Integer fairInformationId = JSON.parseObject(json).getInteger("fairInformationId");
+		Integer userId = JSON.parseObject(json).getInteger("userId");
+		FairUser fairUser = new FairUser();
+		fairUser.setFairInformationId(fairInformationId);
+		fairUser.setUserId(userId);
+		return journalFairService.insertFairUser(fairUser);
 	}
 
 }

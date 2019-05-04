@@ -36,6 +36,10 @@
 		<association property="fairUserShow" column="user_id"
 			javaType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo"
 			select="selectFairUser"></association>
+		<collection property="fairUsers"
+			column="fair_information_id"
+			ofType="cn.edu.imut.jm.fair.domain.fair.entity.FairUser"
+			select="selectFairUserByfairInformationId"></collection>
 	</resultMap>
 	<!-- 用户信息 -->
 	<resultMap id="UserMap"
@@ -277,5 +281,71 @@
 		<include refid="FairInformation_Column_List" />
 		from fair_information where fair_end_time &gt; NOW() order by
 		fair_start_time desc
+	</select>
+
+	<!-- 用户参加 -->
+	<insert id="insertFairUser"
+		parameterType="cn.edu.imut.jm.fair.domain.fair.entity.FairUser">
+		insert into fair_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fairUserId != null">
+				fair_user_id,
+			</if>
+			<if test="fairInformationId != null">
+				fair_information_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fairUserId != null">
+				#{fairUserId,jdbcType=INTEGER},
+			</if>
+			<if test="fairInformationId != null">
+				#{fairInformationId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 验证用户是否参加 -->
+	<select id="verifyIsJoin" resultType="int">
+		select fair_user_id from fair_user where
+		fair_information_id=#{fairInformationId,jdbcType=INTEGER} and
+		user_id=#{userId,jdbcType=INTEGER}
+	</select>
+
+	<!--书展用户关联 -->
+	<resultMap id="FairUserMap"
+		type="cn.edu.imut.jm.fair.domain.fair.entity.FairUser">
+		<id column="fair_user_id" property="fairUserId" jdbcType="INTEGER" />
+		<result column="fair_information_id"
+			property="fairInformationId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap
+		type="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserVo"
+		id="FairUserVoMap" extends="FairUserMap">
+		<collection property="users" column="user_id"
+			ofType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo" 
+			select="selectFairUsers"></collection>
+	</resultMap>
+	<sql id="FairUser_Column_List">
+		fair_user_id, fair_information_id, user_id
+	</sql>
+	<select id="selectFairUserByfairInformationId"
+		resultMap="FairUserVoMap" parameterType="java.lang.Integer">
+		select
+		<include refid="FairUser_Column_List" />
+		from fair_user
+		where fair_information_id = #{fairInformationId,jdbcType=INTEGER}
+	</select>
+	<select id="selectFairUsers" parameterType="int"
+		resultMap="UserMap">
+		select user_name,user_phone from user where user_id
+		=#{userId,jdbcType=INTEGER}
 	</select>
 </mapper>

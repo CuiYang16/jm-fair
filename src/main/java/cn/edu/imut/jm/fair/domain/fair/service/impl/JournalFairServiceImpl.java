@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 
 import cn.edu.imut.jm.fair.domain.fair.dao.JournalFairDao;
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
+import cn.edu.imut.jm.fair.domain.fair.entity.FairUser;
 import cn.edu.imut.jm.fair.domain.fair.service.JournalFairService;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.JournalFairShowVo;
@@ -106,6 +107,18 @@ public class JournalFairServiceImpl implements JournalFairService {
 
 		return journalFairDao.selectFairInfos();
 
+	}
+
+	@Override
+	public Integer insertFairUser(FairUser fairUser) {
+		if (fairUser != null) {
+			Integer verifyIsJoin = journalFairDao.verifyIsJoin(fairUser.getFairInformationId(), fairUser.getUserId());
+			if (verifyIsJoin != null) {
+				return 50001;
+			}
+			return journalFairDao.insertFairUser(fairUser);
+		}
+		return null;
 	}
 
 }
