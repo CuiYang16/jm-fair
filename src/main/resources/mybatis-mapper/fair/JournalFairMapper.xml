@@ -329,9 +329,9 @@
 	<resultMap
 		type="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserVo"
 		id="FairUserVoMap" extends="FairUserMap">
-		<collection property="users" column="user_id"
-			ofType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo" 
-			select="selectFairUsers"></collection>
+		<association property="joinUser" column="user_id"
+			javaType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo" 
+			select="selectFairUsers"></association>
 	</resultMap>
 	<sql id="FairUser_Column_List">
 		fair_user_id, fair_information_id, user_id
