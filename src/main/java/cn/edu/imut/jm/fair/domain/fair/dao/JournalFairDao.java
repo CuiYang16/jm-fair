@@ -37,4 +37,8 @@ public interface JournalFairDao {
 	Integer insertFairUser(FairUser fairUser);
 
 	Integer verifyIsJoin(@Param("fairInformationId") Integer fairInformationId, @Param("userId") Integer userId);
+
+	List<Integer> selectFairIdByUserId(Integer userId);
+
+	List<FairInformation> selectFairById(List<Integer> ids);
 }

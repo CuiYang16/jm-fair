@@ -348,4 +348,19 @@
 		select user_name,user_phone from user where user_id
 		=#{userId,jdbcType=INTEGER}
 	</select>
+	
+	<!-- 根据用户id查询参加书展 -->
+	<select id="selectFairIdByUserId" resultType="int" parameterType="int">
+		select fair_information_id from fair_user where user_id =#{userId,jdbcType=INTEGER}
+	</select>
+	
+	<!--根据书展id集合书展  -->
+	<select id="selectFairById" resultMap="FairInformationMap" parameterType="java.util.List">
+	select <include refid="FairInformation_Column_List"/> from fair_information where fair_information_id in 
+	<foreach collection="list" item="fairInformationId"
+			index="index" open="(" close=")" separator=",">
+			#{fairInformationId,jdbcType=INTEGER}
+		</foreach>
+		order by fair_start_time desc
+	</select>
 </mapper>

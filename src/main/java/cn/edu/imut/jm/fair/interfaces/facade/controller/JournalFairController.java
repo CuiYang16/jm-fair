@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 
 import cn.edu.imut.infrastructrue.util.JwtTokenUtil;
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
@@ -158,9 +159,10 @@ public class JournalFairController implements JournalFairServiceApi {
 	}
 
 	@Override
-	public List<FairUserShowVo> selectFairInfos() {
+	public PageInfo<FairUserShowVo> selectFairInfos(@RequestParam("pageNum") Integer pageNum,
+			@RequestParam("pageSize") Integer pageSize) {
 
-		return journalFairService.selectFairInfos();
+		return journalFairService.selectFairInfos(pageNum, pageSize);
 	}
 
 	@Override
@@ -172,6 +174,17 @@ public class JournalFairController implements JournalFairServiceApi {
 		fairUser.setFairInformationId(fairInformationId);
 		fairUser.setUserId(userId);
 		return journalFairService.insertFairUser(fairUser);
+	}
+
+	@Override
+	public PageInfo<FairInformation> selectUserFairInfos(@RequestParam("pageNum") Integer pageNum,
+			@RequestParam("pageSize") Integer pageSize, @RequestParam("token") String token) {
+		Integer userId = JwtTokenUtil.getUserId(token);
+		List<Integer> selectFairIdByUserId = journalFairService.selectFairIdByUserId(userId);
+		if (selectFairIdByUserId != null && selectFairIdByUserId.size() > 0) {
+			return journalFairService.selectFairById(selectFairIdByUserId, pageNum, pageSize);
+		}
+		return null;
 	}
 
 }

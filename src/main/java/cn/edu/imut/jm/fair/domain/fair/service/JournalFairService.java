@@ -30,8 +30,12 @@ public interface JournalFairService {
 
 	Integer deleteMultipleJournal(List<Integer> ids);
 
-	List<FairUserShowVo> selectFairInfos();
+	PageInfo<FairUserShowVo> selectFairInfos(Integer pageNum, Integer pageSize);
 
 //	前端请求
 	Integer insertFairUser(FairUser fairUser);
+
+	List<Integer> selectFairIdByUserId(Integer userId);
+
+	PageInfo<FairInformation> selectFairById(List<Integer> ids, Integer pageNum, Integer pageSize);
 }

@@ -1,13 +1,14 @@
 package cn.edu.imut.jm.fair.interfaces.facade.controller.api;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.PageInfo;
+
+import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.ResponseVo;
 import cn.edu.imut.jm.journal.domain.journal.valobj.JournalDetailVo;
@@ -42,8 +43,13 @@ public interface JournalFairServiceApi {
 
 //	前端请求
 	@RequestMapping(value = "/get/fairs", method = RequestMethod.GET)
-	List<FairUserShowVo> selectFairInfos();
+	PageInfo<FairUserShowVo> selectFairInfos(@RequestParam("pageNum") Integer pageNum,
+			@RequestParam("pageSize") Integer pageSize);
 
 	@RequestMapping(value = "/insert/fair-user", method = RequestMethod.POST)
 	Integer insertFairUser(@RequestBody String json);
+
+	@RequestMapping(value = "/get/user-fairs", method = RequestMethod.GET)
+	PageInfo<FairInformation> selectUserFairInfos(@RequestParam("pageNum") Integer pageNum,
+			@RequestParam("pageSize") Integer pageSize, @RequestParam("token") String token);
 }

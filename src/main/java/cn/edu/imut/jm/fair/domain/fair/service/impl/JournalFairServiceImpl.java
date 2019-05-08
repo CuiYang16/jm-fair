@@ -103,9 +103,13 @@ public class JournalFairServiceImpl implements JournalFairService {
 
 //	前端请求
 	@Override
-	public List<FairUserShowVo> selectFairInfos() {
-
-		return journalFairDao.selectFairInfos();
+	public PageInfo<FairUserShowVo> selectFairInfos(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<FairUserShowVo> selectFairInfos = journalFairDao.selectFairInfos();
+		PageInfo<FairUserShowVo> pageInfo = new PageInfo<FairUserShowVo>(selectFairInfos);
+		pageInfo.setPageNum(pageNum);
+		pageInfo.setPageSize(pageSize);
+		return pageInfo;
 
 	}
 
@@ -117,6 +121,27 @@ public class JournalFairServiceImpl implements JournalFairService {
 				return 50001;
 			}
 			return journalFairDao.insertFairUser(fairUser);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Integer> selectFairIdByUserId(Integer userId) {
+		if (userId != null && userId != 0) {
+			return journalFairDao.selectFairIdByUserId(userId);
+		}
+		return null;
+	}
+
+	@Override
+	public PageInfo<FairInformation> selectFairById(List<Integer> ids, Integer pageNum, Integer pageSize) {
+		if (ids != null && ids.size() > 0) {
+			PageHelper.startPage(pageNum, pageSize);
+			List<FairInformation> selectFairById = journalFairDao.selectFairById(ids);
+			PageInfo<FairInformation> pageInfo = new PageInfo<FairInformation>(selectFairById);
+			pageInfo.setPageNum(pageNum);
+			pageInfo.setPageSize(pageSize);
+			return pageInfo;
 		}
 		return null;
 	}
