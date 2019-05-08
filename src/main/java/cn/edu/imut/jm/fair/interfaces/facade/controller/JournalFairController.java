@@ -166,7 +166,8 @@ public class JournalFairController implements JournalFairServiceApi {
 	@Override
 	public Integer insertFairUser(@RequestBody String json) {
 		Integer fairInformationId = JSON.parseObject(json).getInteger("fairInformationId");
-		Integer userId = JSON.parseObject(json).getInteger("userId");
+		String token = JSON.parseObject(json).getString("token");
+		Integer userId = JwtTokenUtil.getUserId(token);
 		FairUser fairUser = new FairUser();
 		fairUser.setFairInformationId(fairInformationId);
 		fairUser.setUserId(userId);
