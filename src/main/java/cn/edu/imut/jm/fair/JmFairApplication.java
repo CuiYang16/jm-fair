@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEurekaClient
 @EnableDiscoveryClient
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = { "cn.edu.imut.jm.fair.domain.journal.service" })
 
 @MapperScan("cn.edu.imut.jm.fair.*.repo.dao.**")
 public class JmFairApplication {

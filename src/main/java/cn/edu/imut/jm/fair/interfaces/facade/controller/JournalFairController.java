@@ -27,8 +27,9 @@ import cn.edu.imut.jm.journal.domain.journal.valobj.JournalDetailVo;
 @RestController
 public class JournalFairController implements JournalFairServiceApi {
 
+	// private static final String FAIR_IMG_FILE_PATH =
+	// "C:/Users/Administrator/Desktop/journal-door/static/fair-img/";
 	private static final String FAIR_IMG_FILE_PATH = "F:/MyWorkSpace/bishe-vue/journal-door/static/fair-img/";
-
 	@Autowired
 	private JournalFairService journalFairService;
 	@Autowired
