@@ -138,6 +138,12 @@ public class JournalFairController implements JournalFairServiceApi {
 	}
 
 	@Override
+	public ResponseVo fairChart() {
+
+		return new ResponseVo<>(journalFairService.fairChart());
+	}
+
+	@Override
 	public ResponseVo DelJournalFair(@RequestBody String json) {
 		Integer fairInformationId = JSON.parseObject(json).getInteger("fairInformationId");
 		Integer delType = JSON.parseObject(json).getInteger("delType");

@@ -93,6 +93,11 @@ public class ResponseVo<E> extends AbstractResponse {
 		this.msg = msg;
 	}
 
+	public ResponseVo(String msg) {
+		super();
+		this.msg = msg;
+	}
+
 	public ResponseVo() {
 		super();
 	}

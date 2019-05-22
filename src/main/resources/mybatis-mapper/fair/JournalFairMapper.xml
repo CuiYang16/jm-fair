@@ -273,6 +273,15 @@
 		</foreach>
 	</delete>
 
+	<!-- 所有书展数 -->
+	<select id="fairCount" resultType="int">
+		select count(*) from fair_information
+	</select>
+
+	<!-- 未过期书展数 -->
+	<select id="okFairCount" resultType="int">
+		select count(*) from fair_information where fair_end_time &gt; NOW()
+	</select>
 
 	<!-- 前端请求 -->
 	<!--查询 -->
@@ -313,7 +322,8 @@
 
 	<!-- 验证用户是否参加 -->
 	<select id="verifyIsJoin" resultType="int">
-		select fair_user_id from fair_user where
+		select fair_user_id from
+		fair_user where
 		fair_information_id=#{fairInformationId,jdbcType=INTEGER} and
 		user_id=#{userId,jdbcType=INTEGER}
 	</select>
@@ -330,7 +340,7 @@
 		type="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserVo"
 		id="FairUserVoMap" extends="FairUserMap">
 		<association property="joinUser" column="user_id"
-			javaType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo" 
+			javaType="cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo"
 			select="selectFairUsers"></association>
 	</resultMap>
 	<sql id="FairUser_Column_List">
@@ -341,23 +351,29 @@
 		select
 		<include refid="FairUser_Column_List" />
 		from fair_user
-		where fair_information_id = #{fairInformationId,jdbcType=INTEGER}
+		where fair_information_id =
+		#{fairInformationId,jdbcType=INTEGER}
 	</select>
 	<select id="selectFairUsers" parameterType="int"
 		resultMap="UserMap">
 		select user_name,user_phone from user where user_id
 		=#{userId,jdbcType=INTEGER}
 	</select>
-	
+
 	<!-- 根据用户id查询参加书展 -->
-	<select id="selectFairIdByUserId" resultType="int" parameterType="int">
-		select fair_information_id from fair_user where user_id =#{userId,jdbcType=INTEGER}
+	<select id="selectFairIdByUserId" resultType="int"
+		parameterType="int">
+		select fair_information_id from fair_user where user_id
+		=#{userId,jdbcType=INTEGER}
 	</select>
-	
-	<!--根据书展id集合书展  -->
-	<select id="selectFairById" resultMap="FairInformationMap" parameterType="java.util.List">
-	select <include refid="FairInformation_Column_List"/> from fair_information where fair_information_id in 
-	<foreach collection="list" item="fairInformationId"
+
+	<!--根据书展id集合书展 -->
+	<select id="selectFairById" resultMap="FairInformationMap"
+		parameterType="java.util.List">
+		select
+		<include refid="FairInformation_Column_List" />
+		from fair_information where fair_information_id in
+		<foreach collection="list" item="fairInformationId"
 			index="index" open="(" close=")" separator=",">
 			#{fairInformationId,jdbcType=INTEGER}
 		</foreach>

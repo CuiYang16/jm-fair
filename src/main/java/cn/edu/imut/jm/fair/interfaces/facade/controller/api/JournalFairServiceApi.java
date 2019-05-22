@@ -41,6 +41,9 @@ public interface JournalFairServiceApi {
 	@RequestMapping(value = "/del-fair", method = RequestMethod.DELETE)
 	ResponseVo DelJournalFair(@RequestBody String json);
 
+	@RequestMapping(value = "/get-fair-chart", method = RequestMethod.GET)
+	ResponseVo fairChart();
+
 //	前端请求
 	@RequestMapping(value = "/get/fairs", method = RequestMethod.GET)
 	PageInfo<FairUserShowVo> selectFairInfos(@RequestParam("pageNum") Integer pageNum,

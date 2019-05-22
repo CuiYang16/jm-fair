@@ -101,6 +101,14 @@ public class JournalFairServiceImpl implements JournalFairService {
 		return null;
 	}
 
+	@Override
+	public String fairChart() {
+		Integer fairCount = journalFairDao.fairCount();
+		Integer okFairCount = journalFairDao.okFairCount();
+
+		return fairCount + "," + okFairCount;
+	}
+
 //	前端请求
 	@Override
 	public PageInfo<FairUserShowVo> selectFairInfos(Integer pageNum, Integer pageSize) {

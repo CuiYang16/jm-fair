@@ -31,6 +31,10 @@ public interface JournalFairDao {
 
 	Integer deleteMultipleJournal(List<Integer> ids);
 
+	Integer fairCount();
+
+	Integer okFairCount();
+
 //	前端请求接口
 	List<FairUserShowVo> selectFairInfos();
 

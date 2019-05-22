@@ -32,6 +32,8 @@ public interface JournalFairService {
 
 	PageInfo<FairUserShowVo> selectFairInfos(Integer pageNum, Integer pageSize);
 
+	String fairChart();
+
 //	前端请求
 	Integer insertFairUser(FairUser fairUser);
 
