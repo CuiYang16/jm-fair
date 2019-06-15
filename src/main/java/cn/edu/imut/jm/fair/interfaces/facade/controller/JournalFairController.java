@@ -22,8 +22,13 @@ import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.JournalFairShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.ResponseVo;
 import cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi;
-import cn.edu.imut.jm.journal.domain.journal.valobj.JournalDetailVo;
 
+/**
+ * @Package cn.edu.imut.jm.fair.interfaces.facade.controller
+ * @ClassName: JournalFairController
+ * @Description: 书展controller
+ * @author cuiyang
+ */
 @RestController
 public class JournalFairController implements JournalFairServiceApi {
 
@@ -35,6 +40,14 @@ public class JournalFairController implements JournalFairServiceApi {
 	@Autowired
 	private FairFacade fairFacade;
 
+	/**
+	 * 
+	 * @Title: selectFairInformations
+	 * @Description: 分页条件查询书展
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#selectFairInformations(java.lang.Integer,
+	 *           java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public ResponseVo<FairUserShowVo> selectFairInformations(@RequestParam("pageNum") Integer pageNum,
 			@RequestParam("pageSize") Integer pageSize, @RequestParam("isDelete") Integer isDelete,
@@ -48,6 +61,13 @@ public class JournalFairController implements JournalFairServiceApi {
 		return new ResponseVo<>(journalFairService.selectFairInformations(pageNum, pageSize, isDelete, overdue));
 	}
 
+	/**
+	 * 
+	 * @Title: insertFairInfo
+	 * @Description: 新增书展信息
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#insertFairInfo(java.lang.String)
+	 */
 	@Override
 	public ResponseVo insertFairInfo(@RequestBody String json) {
 		FairInformation fairInformation = JSON.toJavaObject(JSON.parseObject(json).getJSONObject("fairInformation"),
@@ -61,12 +81,14 @@ public class JournalFairController implements JournalFairServiceApi {
 		return new ResponseVo<>(insertFairInfo, fairInformation.getFairInformationId().toString());
 	}
 
-	@Override
-	public ResponseVo<JournalDetailVo> getJournals() {
-
-		return new ResponseVo<JournalDetailVo>(fairFacade.getAllJournal());
-	}
-
+	/**
+	 * 
+	 * @Title: insertJouranlImgs
+	 * @Description: 插入书展图片
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#insertJouranlImgs(java.lang.Integer,
+	 *           org.springframework.web.multipart.MultipartFile)
+	 */
 	@Override
 	public ResponseVo insertJouranlImgs(@RequestParam("fairInformationId") Integer fairInformationId,
 			@RequestParam("file") MultipartFile fairImage) {
@@ -94,6 +116,13 @@ public class JournalFairController implements JournalFairServiceApi {
 		}
 	}
 
+	/**
+	 * 
+	 * @Title: updateFairInfo
+	 * @Description: 编辑书展信息
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#updateFairInfo(java.lang.String)
+	 */
 	@Override
 	public ResponseVo updateFairInfo(@RequestBody String json) {
 		FairInformation fairInformation = JSON.toJavaObject(JSON.parseObject(json).getJSONObject("fairInformation"),
@@ -101,6 +130,14 @@ public class JournalFairController implements JournalFairServiceApi {
 		return new ResponseVo<>(journalFairService.updateFairInfo(fairInformation));
 	}
 
+	/**
+	 * 
+	 * @Title: updateJouranlImgs
+	 * @Description: 更新书展图片
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#updateJouranlImgs(java.lang.Integer,
+	 *           org.springframework.web.multipart.MultipartFile)
+	 */
 	@Override
 	public ResponseVo updateJouranlImgs(@RequestParam("fairInformationId") Integer fairInformationId,
 			@RequestParam("file") MultipartFile fairImage) {
@@ -137,34 +174,60 @@ public class JournalFairController implements JournalFairServiceApi {
 		}
 	}
 
+	/**
+	 * 
+	 * @Title: fairChart
+	 * @Description: 书展统计，包括总数和未过期数
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#fairChart()
+	 */
 	@Override
 	public ResponseVo fairChart() {
 
 		return new ResponseVo<>(journalFairService.fairChart());
 	}
 
+	/**
+	 * 
+	 * @Title: DelJournalFair
+	 * @Description: 删除书展
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#DelJournalFair(java.lang.String)
+	 */
 	@Override
 	public ResponseVo DelJournalFair(@RequestBody String json) {
 		Integer fairInformationId = JSON.parseObject(json).getInteger("fairInformationId");
 		Integer delType = JSON.parseObject(json).getInteger("delType");
 		List<Integer> ids = JSON.parseArray(JSON.toJSONString(JSON.parseObject(json).getJSONArray("delIds")),
 				Integer.class);
+//		去激活
 		if (delType == 1) {
 			return new ResponseVo<>(journalFairService.updateJournalFairDel(fairInformationId));
 		}
+//		彻底删除
 		if (delType == 2) {
 			return new ResponseVo<>(journalFairService.deleteJournalFair(fairInformationId));
 
 		}
+//		批量去激活
 		if (delType == 3) {
 			return new ResponseVo<>(journalFairService.updateMultipleJournalFairDel(ids));
 		}
+//		批量删除
 		if (delType == 4) {
 			return new ResponseVo<>(journalFairService.deleteMultipleJournal(ids));
 		}
 		return new ResponseVo<>(0);
 	}
 
+	/**
+	 * 
+	 * @Title: selectFairInfos
+	 * @Description: 分页查询未过期书展信息
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#selectFairInfos(java.lang.Integer,
+	 *           java.lang.Integer)
+	 */
 	@Override
 	public PageInfo<FairUserShowVo> selectFairInfos(@RequestParam("pageNum") Integer pageNum,
 			@RequestParam("pageSize") Integer pageSize) {
@@ -172,6 +235,13 @@ public class JournalFairController implements JournalFairServiceApi {
 		return journalFairService.selectFairInfos(pageNum, pageSize);
 	}
 
+	/**
+	 * 
+	 * @Title: insertFairUser
+	 * @Description: 报名参加书展
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#insertFairUser(java.lang.String)
+	 */
 	@Override
 	public Integer insertFairUser(@RequestBody String json) {
 		Integer fairInformationId = JSON.parseObject(json).getInteger("fairInformationId");
@@ -183,6 +253,14 @@ public class JournalFairController implements JournalFairServiceApi {
 		return journalFairService.insertFairUser(fairUser);
 	}
 
+	/**
+	 * 
+	 * @Title: selectUserFairInfos
+	 * @Description:查询用户已参加书展
+	 * @override @see
+	 *           cn.edu.imut.jm.fair.interfaces.facade.controller.api.JournalFairServiceApi#selectUserFairInfos(java.lang.Integer,
+	 *           java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public PageInfo<FairInformation> selectUserFairInfos(@RequestParam("pageNum") Integer pageNum,
 			@RequestParam("pageSize") Integer pageSize, @RequestParam("token") String token) {

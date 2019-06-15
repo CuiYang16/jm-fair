@@ -124,6 +124,7 @@ public class JournalFairServiceImpl implements JournalFairService {
 	@Override
 	public Integer insertFairUser(FairUser fairUser) {
 		if (fairUser != null) {
+//			验证是否已参加
 			Integer verifyIsJoin = journalFairDao.verifyIsJoin(fairUser.getFairInformationId(), fairUser.getUserId());
 			if (verifyIsJoin != null) {
 				return 50001;

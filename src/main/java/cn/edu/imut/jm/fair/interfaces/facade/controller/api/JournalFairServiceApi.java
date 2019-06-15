@@ -11,7 +11,6 @@ import com.github.pagehelper.PageInfo;
 import cn.edu.imut.jm.fair.domain.fair.entity.FairInformation;
 import cn.edu.imut.jm.fair.domain.fair.valobj.FairUserShowVo;
 import cn.edu.imut.jm.fair.domain.fair.valobj.ResponseVo;
-import cn.edu.imut.jm.journal.domain.journal.valobj.JournalDetailVo;
 
 @RequestMapping("/journal-fair")
 public interface JournalFairServiceApi {
@@ -20,9 +19,6 @@ public interface JournalFairServiceApi {
 	ResponseVo<FairUserShowVo> selectFairInformations(@RequestParam("pageNum") Integer pageNum,
 			@RequestParam("pageSize") Integer pageSize, @RequestParam("isDelete") Integer isDelete,
 			@RequestParam("overdue") Integer overdue);
-
-	@RequestMapping(value = "/fair-journals", method = RequestMethod.GET)
-	ResponseVo<JournalDetailVo> getJournals();
 
 	@RequestMapping(value = "/insert/fair-info", method = RequestMethod.POST)
 	ResponseVo insertFairInfo(@RequestBody String json);
